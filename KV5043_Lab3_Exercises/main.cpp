@@ -1,35 +1,39 @@
 #include <iostream>
-//ToDo: Add the filestream header
-//ToDo: Add the string stream header
+#include <fstream>
+#include <sstream>
 #include "window.h"
 
 int main(int argc, char* argv[])
 {
 
-	//ToDo: Declare an input file stream object named inputFile
+	std::ifstream inputFile;
 		
-	//ToDo: Open the inputFile object using the "windowParameters.txt" file
-	
-	if (/*ToDo: test the inputFile to make sure it's open*/)
+	inputFile.open("windowParameters.txt");
+	if (inputFile.is_open())
 	{
 		std::string lineOfText;
+		std::string windowName;
 		int xPos = 0;
 		int yPos = 0;
 		int width = 0;
 		int height = 0;
 
-		while (/*Use the getline() function to read a line from inputFile to the lineOfText string*/)
+		while (std::getline(inputFile, lineOfText))
 		{
-			//Todo: Declare a stringstream object named sStream to work lineOfText string
+			std::stringstream sStream(lineOfText);
+						
+			std::string strX, strY, strWidth, strHeight;
 			
-			std::string windowName, strX, strY, strWidth, strHeight;
-			
-			/*ToDo: Use the getline() function with a delimiter to work on the sStream object and store each of the comma seperated
-			* values in the file to the five string variables decclared above
-			*/
+			std::getline(sStream, windowName, ',');
+			std::getline(sStream, strX, ',');
+			std::getline(sStream, strY, ',');
+			std::getline(sStream, strWidth, ',');
+			std::getline(sStream, strHeight);
 
-			//ToDo: use the stoi() function to convert the strings to integers where required.
-			
+			xPos = stoi(strX);
+			yPos = stoi(strY);
+			width = stoi(strWidth);
+			height = stoi(strHeight);
 		}
 
 		Window aWindow = Window(windowName, xPos, yPos, width, height);
