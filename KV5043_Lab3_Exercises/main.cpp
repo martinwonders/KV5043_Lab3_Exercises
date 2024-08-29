@@ -3,12 +3,18 @@
 #include <sstream>
 #include "window.h"
 
+namespace FileParameters
+{
+	const std::string INPUT_FILE_NAME = "windowParameters.txt";
+	const char DELIMETER = ',';
+}
+
 int main(int argc, char* argv[])
 {
 
 	std::ifstream inputFile;
 		
-	inputFile.open("windowParameters.txt");
+	inputFile.open(FileParameters::INPUT_FILE_NAME);
 	if (inputFile.is_open())
 	{
 		std::string lineOfText;
@@ -24,10 +30,10 @@ int main(int argc, char* argv[])
 						
 			std::string strX, strY, strWidth, strHeight;
 			
-			std::getline(sStream, windowName, ',');
-			std::getline(sStream, strX, ',');
-			std::getline(sStream, strY, ',');
-			std::getline(sStream, strWidth, ',');
+			std::getline(sStream, windowName, FileParameters::DELIMETER);
+			std::getline(sStream, strX, FileParameters::DELIMETER);
+			std::getline(sStream, strY, FileParameters::DELIMETER);
+			std::getline(sStream, strWidth, FileParameters::DELIMETER);
 			std::getline(sStream, strHeight);
 
 			xPos = stoi(strX);
@@ -42,7 +48,7 @@ int main(int argc, char* argv[])
 	}
 	else
 	{
-		std::cerr << "Couldn't open the file: windowParameters.txt";
+		std::cerr << "Couldn't open the file: " << FileParameters::INPUT_FILE_NAME << std::endl;
 	}
 
 	return 0;
